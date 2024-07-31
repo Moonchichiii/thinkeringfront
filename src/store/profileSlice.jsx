@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { axiosInstance, axiosMultipartInstance } from '../services/ApiConfig';
+import { axiosInstance, axiosMultipartInstance } from '../services/api';
 
 export const fetchProfiles = createAsyncThunk('profiles/fetchProfiles', async () => {
   const response = await axiosInstance.get('/api/profiles/');

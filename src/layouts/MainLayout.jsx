@@ -1,16 +1,16 @@
+import React from 'react';
 import { Outlet } from 'react-router-dom';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import Header from '../components/header/Header';
+import Footer from '../components/Footer/Footer';
+import styles from './MainLayout.module.css';
 
-function MainLayout() {
+function MainLayout({ scrolled, isAuthenticated, children }) {
   return (
-    <>
-      <Header />
-      <main>
-        <Outlet />
-      </main>
+    <div className={`${styles.layout} ${scrolled ? styles.scrolled : ''}`}>
+      <Header scrolled={scrolled} isAuthenticated={isAuthenticated} />
+      <main>{children || <Outlet />}</main>
       <Footer />
-    </>
+    </div>
   );
 }
 

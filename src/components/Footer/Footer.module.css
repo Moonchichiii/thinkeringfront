@@ -1,0 +1,216 @@
+:root {
+    --footer-bg: #282c34;
+    --footer-text: #ffffff;
+    --footer-accent: #4CAF50;
+    --footer-hover: #f39c12;
+    --footer-border: rgba(255, 255, 255, 0.1);
+    --transition: 0.3s ease;
+  }
+  
+  .footer {
+    background: var(--footer-bg);
+    color: var(--footer-text);
+    padding: 4rem 2rem 1rem;
+    position: relative;
+    font-family: 'Nunito', sans-serif;
+    border-top: 1px solid var(--footer-border);
+  }
+  
+  .content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  .logoSection,
+  .address,
+  .social,
+  .newsletter,
+  .contactUs {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .logoSection .logo {
+    width: 200px;
+    height: auto;
+    margin: auto;
+  }
+  
+  .address h3, .contactUs h2, .social h3, .newsletter h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .address h3::after, .contactUs h2::after, .social h3::after, .newsletter h3::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 20px;
+    height: 3px;
+    background-color: var(--footer-accent);
+  }
+  
+  .contactForm,
+  .newsletterForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .contactInput,
+  .contactTextarea,
+  .newsletterForm input {
+    width: 100%;
+    padding: 0.5rem;
+    border: none;
+    border-bottom: 1px solid var(--footer-text);
+    background: none;
+    color: var(--footer-text);
+    outline: none;
+    transition: border-color var(--transition), background-color var(--transition);
+  }
+  
+  .contactInput:focus,
+  .contactTextarea:focus,
+  .newsletterForm input:focus {
+    border-color: var(--footer-hover);
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+  }
+  
+  .contactButton,
+  .newsletterForm button {
+    padding: 0.8rem 1.5rem;
+    background-color: var(--footer-accent);
+    color: var(--footer-text);
+    border: 1px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color var(--transition), transform var(--transition);
+    font-weight: bold;
+  }
+  
+  .contactButton:hover,
+  .newsletterForm button:hover {
+    background-color: transparent;
+    border: 1px solid var(--footer-accent);
+    transform: translateY(-3px);
+  }
+  
+  .socialIcons {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .socialIcon {
+    color: var(--footer-text);
+    font-size: 1.5rem;
+    transition: color var(--transition), transform var(--transition);
+  }
+  
+  .socialIcon:hover {
+    color: var(--footer-hover);
+    transform: translateY(-5px);
+  }
+  
+  .scrollToTopContainer {
+    position: absolute;
+    top: -25px;
+    right: 30px;
+  }
+  
+  .scrollToTop {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--footer-text);
+    display: flex;
+    align-items: center;
+    transition: transform var(--transition);
+    text-decoration: none;
+  }
+  
+  .scrollToTop:hover {
+    transform: scale(1.1);
+  }
+  
+  .arrowIcon {
+    font-size: 2.5rem; 
+    margin-right: 0.5rem;
+    transition: transform var(--transition);
+  }
+  
+  .scrollToTop:hover .arrowIcon {
+    transform: scale(1.2);
+  }
+  
+  .arrowText {
+    font-size: 1rem;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    text-decoration: none;
+  }
+  
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-25px); }
+    60% { transform: translateY(-10px); }
+  }
+  
+  .arrowIcon {
+    animation: bounce 1.5s infinite;
+  }
+  
+  .bottomBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 2rem;
+    margin-top: 2rem;
+    border-top: 1px solid var(--footer-border);
+    font-size: 0.9rem;
+  }
+  
+  .bottomBar p {
+    margin: 0;
+  }
+  
+  .footerLinks {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .footerLinks a {
+    color: var(--footer-text);
+    text-decoration: none;
+    transition: color var(--transition);
+  }
+  
+  .footerLinks a:hover {
+    color: var(--footer-hover);
+  }
+  
+  @media (max-width: 768px) {
+    .content {
+      grid-template-columns: 1fr;
+    }
+  
+    .scrollToTopContainer {
+      right: 15px;
+    }
+  
+    .bottomBar {
+      flex-direction: column;
+      gap: 1rem;
+      text-align: center;
+    }
+  }

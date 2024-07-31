@@ -1,0 +1,32 @@
+.searchContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchbar {
+  max-width: 100%;
+  min-width: fit-content;
+  padding: 20px;
+  margin-bottom: 20px;  
+  text-align: center;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.searchbar input {
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  
+  background: none;
+  color: #fff;
+  outline: none;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.searchbar input:focus {
+  border-color: #f39c12;
+  background-color: rgba(255, 255, 255, 0.1);
+}

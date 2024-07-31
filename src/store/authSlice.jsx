@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { axiosInstance } from '../services/ApiConfig';
+import { axiosInstance } from '../services/api';
 import Cookies from 'js-cookie';
 
 const clearAuthCookies = () => {

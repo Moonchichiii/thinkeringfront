@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { axiosMultipartInstance } from '../services/ApiConfig';
+import { axiosMultipartInstance } from '../services/api';
 
 export const createLike = createAsyncThunk('likes/createLike', async (likeData) => {
   const response = await axiosMultipartInstance.post('/api/likes/', likeData);

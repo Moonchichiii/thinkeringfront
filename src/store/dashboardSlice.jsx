@@ -1,17 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { axiosInstance } from '../services/ApiConfig';
+import { axiosInstance } from '../services/api';
 
 export const fetchPosts = createAsyncThunk('dashboard/fetchPosts', async (_, { rejectWithValue }) => {
   try {
     const response = await axiosInstance.get('/api/posts/');
-    console.log('Posts:', response.data); // Debugging
     return response.data;
   } catch (error) {
     if (error.response && error.response.data) {
-      console.log('Error:', error.response.data); // Debugging
       return rejectWithValue(error.response.data);
     }
-    console.log('Error:', error.message); // Debugging
     return rejectWithValue(error.message);
   }
 });
@@ -19,14 +16,11 @@ export const fetchPosts = createAsyncThunk('dashboard/fetchPosts', async (_, { r
 export const fetchProfile = createAsyncThunk('dashboard/fetchProfile', async (_, { rejectWithValue }) => {
   try {
     const response = await axiosInstance.get('/api/users/current_user/');
-    console.log('Profile:', response.data.profile); // Debugging
-    return response.data.profile; // Ensure the profile data is returned correctly
+    return response.data.profile;
   } catch (error) {
     if (error.response && error.response.data) {
-      console.log('Error:', error.response.data); // Debugging
       return rejectWithValue(error.response.data);
     }
-    console.log('Error:', error.message); // Debugging
     return rejectWithValue(error.message);
   }
 });
@@ -34,14 +28,11 @@ export const fetchProfile = createAsyncThunk('dashboard/fetchProfile', async (_,
 export const fetchNotifications = createAsyncThunk('dashboard/fetchNotifications', async (_, { rejectWithValue }) => {
   try {
     const response = await axiosInstance.get('/api/notifications/');
-    console.log('Notifications:', response.data); // Debugging
     return response.data;
   } catch (error) {
     if (error.response && error.response.data) {
-      console.log('Error:', error.response.data); // Debugging
       return rejectWithValue(error.response.data);
     }
-    console.log('Error:', error.message); // Debugging
     return rejectWithValue(error.message);
   }
 });

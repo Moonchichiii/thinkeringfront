@@ -1,0 +1,31 @@
+.dashboardContainer {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+  
+  .mainContent {
+    display: grid;
+    gap: 20px;
+  }
+  
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .loading, .error {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.2rem;
+  }
+  
+  @media (max-width: 768px) {
+    .dashboardContainer {
+      grid-template-columns: 1fr;
+    }
+  }

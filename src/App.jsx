@@ -1,35 +1,68 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useEffect, useState, lazy, Suspense } from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import './App.css';
+import MainLayout from './layouts/MainLayout';
+import ProtectedRoute from './pages/protectedroutes/ProtectedRoutes';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCurrentUser } from './store/authSlice';
+import Loading from './components/Loader/LoadSpinner';
+import Cookies from 'js-cookie';
+
+const MainContent = lazy(() => import('./pages/MainContent/MainContent'));
+const Dashboard = lazy(() => import('./pages/Dashboard/Dashboard'));
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [scrolled, setScrolled] = useState(false);
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    const token = Cookies.get('access_token');
+    if (token) {
+      dispatch(fetchCurrentUser());
+    }
+  }, [dispatch]);
+
+  const isAuthenticated = !!user;
+
+  const handleScroll = () => {
+    setScrolled(window.scrollY > 50);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Router>
+      <MainLayout scrolled={scrolled} isAuthenticated={isAuthenticated}>
+        <Routes>
+          <Route
+            path="/*"
+            element={
+              <Suspense fallback={<Loading />}>
+                <MainContent />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute isAuthenticated={isAuthenticated}>
+                <Suspense fallback={<Loading />}>
+                  <Dashboard />
+                </Suspense>
+              </ProtectedRoute>
+            }
+          />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </MainLayout>
+    </Router>
+  );
 }
 
-export default App
+export default App;
