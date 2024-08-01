@@ -6,6 +6,8 @@
     margin: 0 auto;
     padding: 2rem;
     background-color: var(--color-light-grey);
+    border-radius: 0;
+  box-shadow: none;
   }
   
   .title {

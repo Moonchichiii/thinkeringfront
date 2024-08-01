@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, lazy, Suspense } from 'react';
-import { useNavigate, useLocation, useOutletContext } from 'react-router-dom';
+import { useLocation, useOutletContext } from 'react-router-dom';
 import Loading from '../../components/Loader/LoadSpinner';
 
 const LandingPage = lazy(() => import('../Landing/Landing'));
@@ -8,7 +8,6 @@ const About = lazy(() => import('../About/About'));
 const Blog = lazy(() => import('../Blog/Blog'));
 
 function MainContent() {
-  const navigate = useNavigate();
   const location = useLocation();
   const { setShowHeader } = useOutletContext() || { setShowHeader: () => {} };
   const sectionRefs = {

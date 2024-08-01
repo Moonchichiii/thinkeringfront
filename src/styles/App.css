@@ -6,7 +6,15 @@
   --font-body: 'Nunito', sans-serif;
   --font-thick: 'Nunito', sans-serif;
 }
-
+body {
+  font-family: var(--font-body);
+  color: var(--text-color);
+  background: var(--bg-color);
+  min-height: 100vh;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
 
 .app {
   overflow-x: hidden;

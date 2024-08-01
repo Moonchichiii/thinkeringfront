@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-scroll';
 import { useNavigate } from 'react-router-dom';
-import KeyboardDoubleArrowDownSharpIcon from '@mui/icons-material/KeyboardDoubleArrowDownSharp';
 import gsap from 'gsap';
 import styles from './Landing.module.css';
 
@@ -17,12 +16,12 @@ const Landing = () => {
     tl.fromTo(
       titleRef.current.querySelector('.thinkering'),
       { opacity: 0, y: -100 },
-      { opacity: 1, y: 0, duration: 1, ease: 'bounce.out' }
+      { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }
     )
     .fromTo(
       titleRef.current.querySelector('.blog'),
       { opacity: 0, y: -100 },
-      { opacity: 1, y: 0, duration: 1, ease: 'bounce.out' },
+      { opacity: 1, y: 0, duration: 1, ease: 'power3.out' },
       '-=0.5'
     )
     .fromTo(
@@ -52,7 +51,6 @@ const Landing = () => {
       <div className={styles.scrollDown}>
         <Link to="home" smooth={true} duration={1000}>
           <span>Scroll Down</span>
-          <KeyboardDoubleArrowDownSharpIcon className={styles.icon} />
         </Link>
       </div>
     </div>
