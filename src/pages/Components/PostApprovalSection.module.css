@@ -1,0 +1,44 @@
+.postApproval {
+    background: var(--card-bg-color);
+    padding: var(--card-padding);
+    border-radius: var(--card-border-radius);
+    color: var(--card-text-color);
+    margin-bottom: var(--card-margin-bottom);
+  }
+  
+  .postApproval ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .postApproval li {
+    margin-bottom: 15px;
+    border-bottom: 1px solid #3c4b57;
+    padding-bottom: 10px;
+  }
+  
+  .postApproval h3 {
+    margin: 0;
+    font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+  }
+  
+  .postApproval p {
+    margin: 10px 0;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+  }
+  
+  .postApproval button {
+    background: var(--button-bg-color);
+    color: var(--button-text-color);
+    border: none;
+    border-radius: var(--button-border-radius);
+    padding: var(--button-padding);
+    cursor: pointer;
+    margin-right: 10px;
+    font-size: clamp(0.8rem, 2.5vw, 1rem);
+  }
+  
+  .postApproval button:hover {
+    background: darken(var(--button-bg-color), 10%);
+  }
+  

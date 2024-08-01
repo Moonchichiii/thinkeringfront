@@ -1,0 +1,9 @@
+.blogPostSlider {
+    background: var(--card-bg-color);
+    padding: var(--card-padding);
+    border-radius: var(--card-border-radius);
+    color: var(--card-text-color);
+    margin-bottom: var(--card-margin-bottom);
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+  }
+  

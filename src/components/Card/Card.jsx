@@ -2,7 +2,7 @@ import React from 'react';
 import { Rating, IconButton, Accordion, AccordionSummary, AccordionDetails, Typography } from '@mui/material';
 import { Favorite, Comment, ExpandMore } from '@mui/icons-material';
 import { useSelector } from 'react-redux';
-import styles from './BlogCard.module.css';
+import styles from './Card.module.css';
 
 const BlogCard = ({ post }) => {
   const { user } = useSelector((state) => state.auth);

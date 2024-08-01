@@ -3,7 +3,7 @@ import { Link } from 'react-scroll';
 import { useNavigate } from 'react-router-dom';
 import KeyboardDoubleArrowDownSharpIcon from '@mui/icons-material/KeyboardDoubleArrowDownSharp';
 import gsap from 'gsap';
-import styles from './LandingPage.module.css';
+import styles from './Landing.module.css';
 
 const Landing = () => {
   const titleRef = useRef(null);

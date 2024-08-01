@@ -1,8 +1,7 @@
 import React from 'react';
 import styles from './NotificationsSection.module.css';
 
-const NotificationsSection = ({ notifications }) => {
-  console.log("Notifications:", notifications); // Add this line to console log the notifications data
+const NotificationsSection = ({ notifications }) => {  
   return (
     <div className={styles.NotificationsSection}>
       <h2>Recent Activities (Notifications)</h2>

@@ -1,0 +1,14 @@
+:root {
+  --bg-color: #282c34;
+  --text-color: #fff;
+  --accent-color: #f39c12;
+  --font-title: 'Bevan', sans-serif;
+  --font-body: 'Nunito', sans-serif;
+  --font-thick: 'Nunito', sans-serif;
+}
+
+
+.app {
+  overflow-x: hidden;
+}
+

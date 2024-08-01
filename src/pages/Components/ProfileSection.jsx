@@ -1,8 +1,7 @@
 import React from 'react';
 import styles from './ProfileSection.module.css';
 
-const ProfileSection = ({ profile }) => {
-  console.log(profile); // Ensure the received profile data is logged correctly
+const ProfileSection = ({ profile }) => {  
 
   return (
     <div className={styles.ProfileSection}>

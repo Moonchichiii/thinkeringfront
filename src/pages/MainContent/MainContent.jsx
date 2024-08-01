@@ -1,15 +1,16 @@
 import React, { useEffect, useRef, lazy, Suspense } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useOutletContext } from 'react-router-dom';
 import Loading from '../../components/Loader/LoadSpinner';
 
-const LandingPage = lazy(() => import('../Landing/LandingPage'));
+const LandingPage = lazy(() => import('../Landing/Landing'));
 const Home = lazy(() => import('../Home/Home'));
 const About = lazy(() => import('../About/About'));
-const Blog = lazy(() => import('../Blog/BlogPage'));
+const Blog = lazy(() => import('../Blog/Blog'));
 
 function MainContent() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { setShowHeader } = useOutletContext() || { setShowHeader: () => {} };
   const sectionRefs = {
     landing: useRef(null),
     home: useRef(null),
@@ -18,37 +19,8 @@ function MainContent() {
   };
 
   useEffect(() => {
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.5,
-    };
-
-    const observerCallback = (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const sectionId = entry.target.id;
-          navigate(`/${sectionId === 'landing' ? '' : sectionId}`, { replace: true });
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
-
-    Object.values(sectionRefs).forEach((ref) => {
-      if (ref.current) {
-        observer.observe(ref.current);
-      }
-    });
-
-    return () => {
-      Object.values(sectionRefs).forEach((ref) => {
-        if (ref.current) {
-          observer.unobserve(ref.current);
-        }
-      });
-    };
-  }, [navigate]);
+    setShowHeader(false);
+  }, [setShowHeader]);
 
   useEffect(() => {
     const sectionId = location.pathname.slice(1) || 'landing';

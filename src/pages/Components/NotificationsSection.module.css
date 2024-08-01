@@ -1,13 +1,15 @@
 .NotificationsSection {
-    background: #2c3e50;
-    padding: 20px;
-    border-radius: 10px;
-    color: #fff;
-  }
-  
-  .Notification {
-    background: #3c4b57;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-  }
+  background: var(--card-bg-color);
+  padding: var(--card-padding);
+  border-radius: var(--card-border-radius);
+  color: var(--card-text-color);
+  margin-bottom: var(--card-margin-bottom);
+}
+
+.Notification {
+  background: #3c4b57;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+}

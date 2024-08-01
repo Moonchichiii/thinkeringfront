@@ -1,0 +1,41 @@
+.following {
+    background: var(--card-bg-color);
+    padding: var(--card-padding);
+    border-radius: var(--card-border-radius);
+    color: var(--card-text-color);
+    margin-bottom: var(--card-margin-bottom);
+  }
+  
+  .following ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .following li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .following img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+  
+  .following span {
+    margin-right: 10px;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+  }
+  
+  .following a {
+    color: var(--text-color);
+    text-decoration: none;
+  }
+  
+  .following a:hover {
+    text-decoration: underline;
+  }
+  

@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchDashboardData } from '../../store/dashboardSlice';
-import ProfileSection from './ProfileSection';
-import NotificationsSection from './NotificationsSection';
-import LatestPostsSection from './LatestPostsSection';
-import PopularProfilesSection from './PopularProfilesSection';
-import TopRatedPostsSection from './TopRatedPostsSection';
-import PostApprovalSection from './PostApprovalSection';
-import FollowingSection from './FollowingSection';
-import BlogPostSlider from './BlogPostSlider';
+import ProfileSection from '../Components/ProfileSection';
+import NotificationsSection from '../Components/NotificationsSection';
+import LatestPostsSection from '../Components/LatestPostsSection';
+import PopularProfilesSection from '../Components/PopularProfilesSection';
+import TopRatedPostsSection from '../Components/TopRatedPostsSection';
+import PostApprovalSection from '../Components/PostApprovalSection';
+import FollowingSection from '../Components/FollowingSection';
+import BlogPostSlider from '../Components/BlogPostSlider';
 import styles from './Dashboard.module.css';
 
 const Dashboard = () => {

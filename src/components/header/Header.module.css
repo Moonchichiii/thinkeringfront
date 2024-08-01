@@ -1,73 +1,69 @@
-:root {
-    --color-primary: #f5a623;
-    --color-secondary: #4a90e2;
-    --color-text: #ffffff;
-    --color-background: rgba(52, 73, 94, 0.9);
-    --transition-default: 0.3s ease;
-    --border-radius: 12px;
+.navLink {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.navLink:hover,
+.navLink:focus {
+  color: #f5a623;
+}
+
+.navLink,
+.mobileNavLink {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navLink:hover,
+.mobileNavLink:hover {
+  color: #f5a623;
+}
+
+.signIn {
+  color: #fff;
+  background-color: #f5a623;
+  margin-left: 10px;
+  border: transparent 1px solid;
+  border-radius: 12px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.signUp {
+  color: #fff;
+  background-color: #4a90e2;
+  margin-left: 10px;
+  border: transparent 1px solid;
+  border-radius: 12px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.signIn:hover,
+.signUp:hover {
+  background-color: transparent;
+  border: #f5a623 1px solid;
+  color: #ffffff;
+  border-radius: 9px;
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .navLink {
+    font-size: 1.2rem;
   }
-  
-  .navLink,
-  .mobileNavLink {
-    color: var(--color-text);
-    text-decoration: none;
-    margin: 0 clamp(10px, 2vw, 15px);
-    font-weight: 500;
-    transition: color var(--transition-default);
-  }
-  
-  .navLink:hover,
-  .navLink:focus,
-  .mobileNavLink:hover,
-  .mobileNavLink:focus {
-    color: var(--color-primary);
-  }
-  
   .signIn,
   .signUp {
-    color: var(--color-text);
-    border: 1px solid transparent;
-    border-radius: var(--border-radius);
-    margin-left: 10px;
-    transition: 
-      background-color var(--transition-default), 
-      transform var(--transition-default),
-      border-color var(--transition-default),
-      border-radius var(--transition-default);
+    font-size: 1rem;
+    padding: 8px 12px;
   }
-  
-  .signIn {
-    background-color: var(--color-primary);
-  }
-  
-  .signUp {
-    background-color: var(--color-secondary);
-  }
-  
-  .signIn:hover,
-  .signUp:hover {
-    background-color: transparent;
-    border-color: var(--color-primary);
-    border-radius: calc(var(--border-radius) - 3px);
-    transform: scale(1.05);
-  }
-  
-  @media (max-width: 768px) {
-    .navLink,
-    .mobileNavLink {
-      font-size: clamp(1rem, 3vw, 1.2rem);
-    }
-  
-    .signIn,
-    .signUp {
-      font-size: clamp(0.875rem, 2.5vw, 1rem);
-      padding: 8px 12px;
-    }
-  }
-  
-  /* Apply styles to Material-UI elements */
+
   .MuiPaper-root {
-    background-color: var(--color-background) !important;
+    background-color: rgba(52, 73, 94, 0.9) !important;
     backdrop-filter: blur(10px) !important;
-    color: var(--color-text) !important;
+    /* color: white !important; */
   }
+}

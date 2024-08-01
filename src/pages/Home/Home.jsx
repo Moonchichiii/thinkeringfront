@@ -13,19 +13,19 @@ const Home = () => {
     gsap.fromTo(
       titleRef.current,
       { opacity: 0, y: -50 },
-      { opacity: 1, y: 0, duration: 1, delay: 0.5 }
+      { opacity: 1, y: 0, duration: 1, delay: 0.5, ease: 'power3.out' }
     );
 
     gsap.fromTo(
       descriptionRef.current,
       { opacity: 0, y: 50 },
-      { opacity: 1, y: 0, duration: 1, delay: 1 }
+      { opacity: 1, y: 0, duration: 1, delay: 1, ease: 'power3.out' }
     );
 
     gsap.fromTo(
       buttonRef.current,
       { opacity: 0, scale: 0.8 },
-      { opacity: 1, scale: 1, duration: 0.5, delay: 1.5 }
+      { opacity: 1, scale: 1, duration: 0.5, delay: 1.5, ease: 'back.out(1.7)' }
     );
 
     // Animate bubbles
@@ -33,7 +33,7 @@ const Home = () => {
     gsap.to(bubbles, {
       y: 'random(-100, 100)',
       x: 'random(-100, 100)',
-      scale: 'random(0.1, 1.5)',
+      scale: 'random(0.5, 1.5)',
       duration: 'random(10, 30)',
       repeat: -1,
       yoyo: true,

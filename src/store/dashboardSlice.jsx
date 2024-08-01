@@ -1,90 +1,165 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { axiosInstance } from '../services/api';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { axiosInstance } from "../services/api";
 
-export const fetchPosts = createAsyncThunk('dashboard/fetchPosts', async (_, { rejectWithValue }) => {
-  try {
-    const response = await axiosInstance.get('/api/posts/');
-    return response.data;
-  } catch (error) {
-    if (error.response && error.response.data) {
+export const fetchPosts = createAsyncThunk(
+  "dashboard/fetchPosts",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get("/api/posts/");
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        return rejectWithValue(error.response.data);
+      }
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const fetchProfile = createAsyncThunk(
+  "dashboard/fetchProfile",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get("/api/users/current_user/");
+      return response.data.profile;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        return rejectWithValue(error.response.data);
+      }
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const fetchNotifications = createAsyncThunk(
+  "dashboard/fetchNotifications",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get("/api/notifications/");
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        return rejectWithValue(error.response.data);
+      }
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const fetchDashboardData = createAsyncThunk(
+  "dashboard/fetchDashboardData",
+  async (_, { dispatch }) => {
+    await Promise.all([
+      dispatch(fetchPosts()),
+      dispatch(fetchProfile()),
+      dispatch(fetchNotifications())
+    ]);
+  }
+);
+
+export const rejectPost = createAsyncThunk(
+  "dashboard/rejectPost",
+  async (postId, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.delete(`/api/posts/${postId}/`);
+      return response.data;
+    } catch (error) {
       return rejectWithValue(error.response.data);
     }
-    return rejectWithValue(error.message);
   }
-});
+);
 
-export const fetchProfile = createAsyncThunk('dashboard/fetchProfile', async (_, { rejectWithValue }) => {
-  try {
-    const response = await axiosInstance.get('/api/users/current_user/');
-    return response.data.profile;
-  } catch (error) {
-    if (error.response && error.response.data) {
+export const approvePost = createAsyncThunk(
+  "dashboard/approvePost",
+  async (postId, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.put(`/api/posts/${postId}/approve`);
+      return response.data;
+    } catch (error) {
       return rejectWithValue(error.response.data);
     }
-    return rejectWithValue(error.message);
   }
-});
-
-export const fetchNotifications = createAsyncThunk('dashboard/fetchNotifications', async (_, { rejectWithValue }) => {
-  try {
-    const response = await axiosInstance.get('/api/notifications/');
-    return response.data;
-  } catch (error) {
-    if (error.response && error.response.data) {
-      return rejectWithValue(error.response.data);
-    }
-    return rejectWithValue(error.message);
-  }
-});
+);
 
 const initialState = {
   posts: [],
   profile: null,
   notifications: [],
   error: null,
-  status: 'idle',
+  status: "idle"
 };
 
 const dashboardSlice = createSlice({
-  name: 'dashboard',
+  name: "dashboard",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchPosts.pending, (state) => {
-        state.status = 'loading';
+        state.status = "loading";
       })
       .addCase(fetchPosts.fulfilled, (state, action) => {
         state.posts = action.payload || [];
-        state.status = 'succeeded';
+        state.status = "succeeded";
       })
       .addCase(fetchPosts.rejected, (state, action) => {
         state.error = action.payload || action.error.message;
-        state.status = 'failed';
+        state.status = "failed";
       })
       .addCase(fetchProfile.pending, (state) => {
-        state.status = 'loading';
+        state.status = "loading";
       })
       .addCase(fetchProfile.fulfilled, (state, action) => {
         state.profile = action.payload;
-        state.status = 'succeeded';
+        state.status = "succeeded";
       })
       .addCase(fetchProfile.rejected, (state, action) => {
         state.error = action.payload || action.error.message;
-        state.status = 'failed';
+        state.status = "failed";
       })
       .addCase(fetchNotifications.pending, (state) => {
-        state.status = 'loading';
+        state.status = "loading";
       })
       .addCase(fetchNotifications.fulfilled, (state, action) => {
         state.notifications = action.payload || [];
-        state.status = 'succeeded';
+        state.status = "succeeded";
       })
       .addCase(fetchNotifications.rejected, (state, action) => {
         state.error = action.payload || action.error.message;
-        state.status = 'failed';
+        state.status = "failed";
+      })
+      .addCase(fetchDashboardData.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchDashboardData.fulfilled, (state) => {
+        state.status = "succeeded";
+      })
+      .addCase(fetchDashboardData.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      })
+      .addCase(rejectPost.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(rejectPost.fulfilled, (state) => {
+        state.status = "succeeded";
+      })
+      .addCase(rejectPost.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      })
+
+      .addCase(approvePost.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(approvePost.fulfilled, (state) => {
+        state.status = "succeeded";
+      })
+      .addCase(approvePost.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
       });
-  },
+  }
 });
 
 export default dashboardSlice.reducer;

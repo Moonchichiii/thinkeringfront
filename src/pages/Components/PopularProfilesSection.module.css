@@ -1,0 +1,41 @@
+.popularProfiles {
+    background: var(--card-bg-color);
+    padding: var(--card-padding);
+    border-radius: var(--card-border-radius);
+    color: var(--card-text-color);
+    margin-bottom: var(--card-margin-bottom);
+  }
+  
+  .popularProfiles ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .popularProfiles li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .popularProfiles img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+  
+  .popularProfiles span {
+    margin-right: 10px;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+  }
+  
+  .popularProfiles a {
+    color: var(--text-color);
+    text-decoration: none;
+  }
+  
+  .popularProfiles a:hover {
+    text-decoration: underline;
+  }
+  

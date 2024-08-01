@@ -1,20 +1,15 @@
-import React, { useEffect, useState, lazy, Suspense } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import './App.css';
-import MainLayout from './layouts/MainLayout';
-import ProtectedRoute from './pages/protectedroutes/ProtectedRoutes';
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import './styles/App.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCurrentUser } from './store/authSlice';
-import Loading from './components/Loader/LoadSpinner';
 import Cookies from 'js-cookie';
-
-const MainContent = lazy(() => import('./pages/MainContent/MainContent'));
-const Dashboard = lazy(() => import('./pages/Dashboard/Dashboard'));
+import AppRoutes from './AppRoutes';
 
 function App() {
-  const [scrolled, setScrolled] = useState(false);
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const token = Cookies.get('access_token');
@@ -23,44 +18,17 @@ function App() {
     }
   }, [dispatch]);
 
-  const isAuthenticated = !!user;
-
-  const handleScroll = () => {
-    setScrolled(window.scrollY > 50);
-  };
-
   useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const isAuthenticated = !!user;
 
   return (
     <Router>
-      <MainLayout scrolled={scrolled} isAuthenticated={isAuthenticated}>
-        <Routes>
-          <Route
-            path="/*"
-            element={
-              <Suspense fallback={<Loading />}>
-                <MainContent />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute isAuthenticated={isAuthenticated}>
-                <Suspense fallback={<Loading />}>
-                  <Dashboard />
-                </Suspense>
-              </ProtectedRoute>
-            }
-          />
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
-      </MainLayout>
+      <AppRoutes isAuthenticated={isAuthenticated} scrolled={scrolled} />
     </Router>
   );
 }

@@ -10,9 +10,10 @@ const About = () => {
 
   useEffect(() => {
     const sections = containerRef.current.querySelectorAll('section');
-    
-    sections.forEach((section, index) => {
-      gsap.fromTo(section, 
+
+    sections.forEach((section) => {
+      gsap.fromTo(
+        section,
         { opacity: 0, y: 50 },
         {
           opacity: 1,
@@ -22,7 +23,8 @@ const About = () => {
           scrollTrigger: {
             trigger: section,
             start: 'top 80%',
-          }
+            toggleActions: 'play none none none',
+          },
         }
       );
     });
@@ -31,33 +33,36 @@ const About = () => {
   return (
     <div className={styles.aboutContainer} ref={containerRef}>
       <h1 className={styles.aboutTitle}>About Us</h1>
-      
+
       <section className={styles.introSection}>
         <h2>Welcome to Thinkering Blog</h2>
-        <p>We're a community of thinkers, creators, and innovators dedicated to exploring the intersection of technology, creativity, and personal growth.</p>
+        <p>
+          Thinkering Blog is a space where creativity, expression, and connection come together. 
+          We invite you to share your stories, ideas, and experiences on a wide range of topics. 
+          Our community is all about fostering meaningful conversations and exploring the world 
+          through different perspectives.
+        </p>
       </section>
 
       <section className={styles.missionSection}>
         <h2>Our Mission</h2>
-        <p>To inspire and empower individuals through thought-provoking content, fostering a culture of continuous learning and innovation.</p>
+        <p>
+          Our mission is to provide a platform for individuals to express themselves, 
+          connect with others, and explore new ideas. Whether you're passionate about technology, 
+          lifestyle, art, or any other topic, Thinkering Blog is your go-to place for inspiration 
+          and community.
+        </p>
       </section>
 
-      <section className={styles.skillsSection}>
-        <h2>What We Bring to the Table</h2>
-        <div className={styles.skillsGrid}>
-          <div className={styles.skillCard}>
-            <h3>Web Development</h3>
-            <p>Expertise in HTML5, CSS3, JavaScript, React, and more.</p>
-          </div>
-          <div className={styles.skillCard}>
-            <h3>Content Creation</h3>
-            <p>Engaging and informative articles on tech trends and innovations.</p>
-          </div>
-          <div className={styles.skillCard}>
-            <h3>Community Building</h3>
-            <p>Fostering a vibrant space for like-minded individuals to connect and grow.</p>
-          </div>
-        </div>
+      <section className={styles.communitySection}>
+        <h2>Join Our Community</h2>
+        <p>
+          At Thinkering Blog, we believe in the power of community. Our platform is designed to bring 
+          people together, allowing members to engage in discussions, share their unique perspectives, 
+          and make lasting connections. Whether you're a writer, reader, or simply someone who loves 
+          exploring new ideas, there's a place for you here.
+        </p>
+        <button className={styles.ctaButton}>Become a Member</button>
       </section>
 
       <section className={styles.teamSection}>
@@ -66,20 +71,14 @@ const About = () => {
           <div className={styles.teamMember}>
             <img src="/path-to-image.jpg" alt="Team Member 1" />
             <h3>Jane Doe</h3>
-            <p>Founder & Lead Developer</p>
+            <p>Founder & Chief Editor</p>
           </div>
           <div className={styles.teamMember}>
             <img src="/path-to-image.jpg" alt="Team Member 2" />
             <h3>John Smith</h3>
-            <p>Content Strategist</p>
+            <p>Community Manager</p>
           </div>
         </div>
-      </section>
-
-      <section className={styles.joinSection}>
-        <h2>Join Our Community</h2>
-        <p>Whether you're a seasoned professional or just starting out, there's a place for you in our community.</p>
-        <button className={styles.ctaButton}>Become a Member</button>
       </section>
     </div>
   );
