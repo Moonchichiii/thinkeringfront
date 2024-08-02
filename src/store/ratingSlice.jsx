@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { axiosMultipartInstance } from '../services/api';
 
 export const createRating = createAsyncThunk('ratings/createRating', async (ratingData) => {
-  const response = await axiosMultipartInstance.post('/api/ratings/', ratingData);
+  const response = await axiosMultipartInstance.post('/api/v1/ratings/', ratingData);
   return response.data;
 });
 

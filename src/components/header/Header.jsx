@@ -1,9 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Link } from 'react-router-dom';
-import {
-  AppBar, Toolbar, Container, Box, IconButton, Button, Tooltip, Menu, MenuItem, Avatar
-} from '@mui/material';
+import { AppBar, Toolbar, Container, Box, IconButton, Button, Tooltip, Menu, MenuItem, Avatar } from '@mui/material';
 import { AccountCircle, Menu as MenuIcon } from '@mui/icons-material';
 import { logoutUser } from '../../store/authSlice';
 import MultiModal from '../Modal/Modal';

@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { axiosMultipartInstance } from '../services/api';
+import { axiosInstance, axiosMultipartInstance } from '../services/api';
 
 export const fetchPosts = createAsyncThunk('posts/fetchPosts', async (params, { rejectWithValue }) => {
   try {
-    const response = await axiosMultipartInstance.get('/api/posts/', { params });
+    const response = await axiosMultipartInstance.get('/api/v1/posts/', { params });
     return response.data;
   } catch (error) {
     return rejectWithValue(error.response.data);
@@ -13,7 +13,7 @@ export const fetchPosts = createAsyncThunk('posts/fetchPosts', async (params, { 
 export const fetchUserPosts = createAsyncThunk('posts/fetchUserPosts', async (_, { getState, rejectWithValue }) => {
   const { user } = getState().auth;
   try {
-    const response = await axiosMultipartInstance.get('/api/posts/', {
+    const response = await axiosMultipartInstance.get('/api/v1/posts/', {
       params: { author: user.id },
     });
     return response.data;
@@ -24,7 +24,7 @@ export const fetchUserPosts = createAsyncThunk('posts/fetchUserPosts', async (_,
 
 export const createPost = createAsyncThunk('posts/createPost', async (postData, { rejectWithValue }) => {
   try {
-    const response = await axiosMultipartInstance.post('/api/posts/', postData);
+    const response = await axiosMultipartInstance.post('/api/v1/posts/', postData);
     return response.data;
   } catch (error) {
     return rejectWithValue(error.response.data);

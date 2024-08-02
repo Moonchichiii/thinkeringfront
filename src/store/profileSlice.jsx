@@ -2,12 +2,12 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { axiosInstance, axiosMultipartInstance } from '../services/api';
 
 export const fetchProfiles = createAsyncThunk('profiles/fetchProfiles', async () => {
-  const response = await axiosInstance.get('/api/profiles/');
+  const response = await axiosInstance.get('/api/v1/profiles/');
   return response.data;
 });
 
 export const updateProfile = createAsyncThunk('profiles/updateProfile', async (profileData) => {
-  const response = await axiosMultipartInstance.put(`/api/profiles/${profileData.get('id')}/`, profileData);
+  const response = await axiosMultipartInstance.put(`/api/v1/profiles/${profileData.get('id')}/`, profileData);
   return response.data;
 });
 

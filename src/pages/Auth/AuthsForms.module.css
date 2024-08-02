@@ -45,6 +45,10 @@
     color: #ff8c00;
   }
   
+.MuiInputBase-input::placeholder {
+  color: lightgray !important;
+  opacity: 1 !important; 
+}
   .input {
     color: #fff !important;
     background-color: rgba(255, 255, 255, 0.1);

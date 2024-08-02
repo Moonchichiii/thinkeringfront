@@ -9,6 +9,7 @@ import TopRatedPostsSection from '../Components/TopRatedPostsSection';
 import PostApprovalSection from '../Components/PostApprovalSection';
 import FollowingSection from '../Components/FollowingSection';
 import BlogPostSlider from '../Components/BlogPostSlider';
+import Alert from '../../components/Alert/Alert';
 import styles from './Dashboard.module.css';
 
 const Dashboard = () => {
@@ -30,6 +31,7 @@ const Dashboard = () => {
 
   return (
     <div className={styles.dashboardContainer}>
+      <Alert />
       <div className={styles.mainContent}>
         <ProfileSection profile={profile} />
         <NotificationsSection notifications={notifications} />

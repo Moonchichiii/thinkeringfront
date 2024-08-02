@@ -44,7 +44,16 @@ const BlogPage = () => {
   }
 
   if (status === 'failed') {
-    return <div className={styles.error}>Error: {error}</div>;
+    // Handle error object rendering
+    let errorMessage = "An unexpected error occurred.";
+    if (error) {
+      if (typeof error === 'string') {
+        errorMessage = error;
+      } else if (typeof error === 'object' && error.detail) {
+        errorMessage = error.detail;
+      }
+    }
+    return <div className={styles.error}>Error: {errorMessage}</div>;
   }
 
   return (

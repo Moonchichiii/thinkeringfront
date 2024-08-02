@@ -1,8 +1,10 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
+// Base URL for the API, configurable through environment variables
 const baseURL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
 
+// Standard axios instance for general API requests
 const axiosInstance = axios.create({
   baseURL,
   headers: {
@@ -11,6 +13,7 @@ const axiosInstance = axios.create({
   },
 });
 
+// Request interceptor to add Authorization header if token exists
 axiosInstance.interceptors.request.use((config) => {
   const token = Cookies.get('access_token');
   if (token) {
@@ -19,6 +22,7 @@ axiosInstance.interceptors.request.use((config) => {
   return config;
 });
 
+// Response interceptor to handle 401 errors and attempt token refresh
 axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
@@ -31,7 +35,7 @@ axiosInstance.interceptors.response.use(
       }
 
       try {
-        const response = await axiosInstance.post('/api/users/refresh/', { refresh: refreshToken });
+        const response = await axiosInstance.post('/api/v1/refresh/', { refresh: refreshToken });
         const { access } = response.data;
         Cookies.set('access_token', access, { path: '/', secure: true, sameSite: 'None' });
         originalRequest.headers.Authorization = `Bearer ${access}`;
@@ -44,10 +48,12 @@ axiosInstance.interceptors.response.use(
   }
 );
 
+// Multipart axios instance for file uploads
 const axiosMultipartInstance = axios.create({
   baseURL,
 });
 
+// Request interceptor for multipart requests, adding Authorization header and setting Content-Type
 axiosMultipartInstance.interceptors.request.use((config) => {
   const token = Cookies.get('access_token');
   if (token) {
@@ -57,6 +63,7 @@ axiosMultipartInstance.interceptors.request.use((config) => {
   return config;
 });
 
+// Response interceptor for multipart requests, similar to the standard instance
 axiosMultipartInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
@@ -69,7 +76,7 @@ axiosMultipartInstance.interceptors.response.use(
       }
 
       try {
-        const response = await axiosInstance.post('/api/users/refresh/', { refresh: refreshToken });
+        const response = await axiosInstance.post('/api/v1/refresh/', { refresh: refreshToken });
         const { access } = response.data;
         Cookies.set('access_token', access, { path: '/', secure: true, sameSite: 'None' });
         originalRequest.headers.Authorization = `Bearer ${access}`;
