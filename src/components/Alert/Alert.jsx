@@ -13,14 +13,14 @@ const Alert = () => {
         <Snackbar
           key={alert.id}
           open={true}
-          autoHideDuration={5000} 
+          autoHideDuration={5000}
           onClose={() => dispatch(removeAlert(alert.id))}
-          anchorOrigin={{ vertical: 'top', horizontal: 'center' }} 
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         >
           <MuiAlert
             onClose={() => dispatch(removeAlert(alert.id))}
-            severity={alert.type || 'info'} 
-            sx={{ width: '100%' }} 
+            severity={alert.type || 'info'}
+            sx={{ width: '100%' }}
           >
             {alert.message}
           </MuiAlert>

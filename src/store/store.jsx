@@ -8,6 +8,8 @@ import commentReducer from './commentSlice';
 import ratingReducer from './ratingSlice';
 import dashboardReducer from './dashboardSlice';
 
+import followingReducer from './followingSlice';
+
 const store = configureStore({
   reducer: {
     auth: authReducer,
@@ -18,7 +20,9 @@ const store = configureStore({
     comments: commentReducer,
     notifications: notificationReducer,
     dashboard: dashboardReducer,
+    following: followingReducer,
   },
 });
 
 export default store;
+

@@ -20,6 +20,21 @@ const Dashboard = () => {
   useEffect(() => {
     dispatch(fetchDashboardData());
   }, [dispatch]);
+  useEffect(() => {
+    console.log('Profile:', profile);
+    console.log('Notifications:', notifications);
+    console.log('Posts:', posts);
+    console.log('Popular Profiles:', popularProfiles);
+    console.log('Top Rated Posts:', topRatedPosts);
+    console.log('Posts for Approval:', postsForApproval);
+    console.log('Following:', following);
+    console.log('Status:', status);
+    console.log('Error:', error);
+  }, [profile, notifications, posts, popularProfiles, topRatedPosts, postsForApproval, following, status, error]);
+
+  if (status === 'failed') {
+    return <div className={styles.error}>Error loading dashboard data: {error}</div>;
+  }
 
   if (status === 'loading') {
     return <div className={styles.loading}>Loading...</div>;

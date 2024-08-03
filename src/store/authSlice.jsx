@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { axiosInstance } from '../services/api';
 import Cookies from 'js-cookie';
+import { resetDashboardState } from './dashboardSlice';
 
 // Utility function to clear authentication cookies
 const clearAuthCookies = () => {
@@ -35,6 +36,7 @@ export const loginUser = createAsyncThunk('auth/login', async (credentials, { di
   Cookies.set('access_token', access, { path: '/', secure: true, sameSite: 'None' });
   Cookies.set('refresh_token', refresh, { path: '/', secure: true, sameSite: 'None' });
   dispatch(setUser(user));
+  dispatch(resetDashboardState()); // Reset dashboard state on login
   return response.data;
 });
 
@@ -45,6 +47,7 @@ export const registerUser = createAsyncThunk('auth/register', async (userData, {
   Cookies.set('access_token', access, { path: '/', secure: true, sameSite: 'None' });
   Cookies.set('refresh_token', refresh, { path: '/', secure: true, sameSite: 'None' });
   dispatch(setUser(user));
+  dispatch(resetDashboardState()); // Reset dashboard state on registration
   return response.data;
 });
 
@@ -134,3 +137,4 @@ const authSlice = createSlice({
 
 export const { setInitialized, setUser, clearUser } = authSlice.actions;
 export default authSlice.reducer;
+

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './PopularProfilesSection.module.css';
 
-const PopularProfilesSection = ({ profiles }) => {
+const PopularProfilesSection = ({ profiles = [] }) => {
   return (
     <div className={styles.popularProfiles}>
       <h2>Popular Profiles</h2>
