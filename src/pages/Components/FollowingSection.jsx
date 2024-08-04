@@ -20,17 +20,8 @@ const FollowingSection = () => {
     dispatch(unfollowProfile(profileId));
   };
 
-  console.log('following:', following);
-  console.log('status:', status);
-  console.log('error:', error);
-
-  if (status === 'loading') {
-    return <div>Loading...</div>;
-  }
-
-  if (status === 'failed') {
-    return <div>Error: {error}</div>;
-  }
+  if (status === 'loading') return <div>Loading...</div>;
+  if (status === 'failed') return <div>Error: {error}</div>;
 
   return (
     <div className={styles.following}>

@@ -6,7 +6,7 @@ import { fetchCurrentUser } from './store/authSlice';
 import Cookies from 'js-cookie';
 import AppRoutes from './AppRoutes';
 
-function App() {
+const App = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
   const [scrolled, setScrolled] = useState(false);
@@ -31,6 +31,6 @@ function App() {
       <AppRoutes isAuthenticated={isAuthenticated} scrolled={scrolled} />
     </Router>
   );
-}
+};
 
 export default App;

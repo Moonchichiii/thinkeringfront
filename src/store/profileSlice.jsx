@@ -1,44 +1,39 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { axiosInstance, axiosMultipartInstance } from '../services/api';
+import { axiosInstance } from '../services/api';
 
-export const fetchProfiles = createAsyncThunk('profiles/fetchProfiles', async () => {
-  const response = await axiosInstance.get('/api/v1/profiles/');
-  return response.data;
+// Thunk to fetch user profile
+export const fetchProfile = createAsyncThunk('profiles/fetchProfile', async () => {
+  const response = await axiosInstance.get('/api/v1/current_user/');
+  return response.data.profile;
 });
 
-export const updateProfile = createAsyncThunk('profiles/updateProfile', async (profileData) => {
-  const response = await axiosMultipartInstance.put(`/api/v1/profiles/${profileData.get('id')}/`, profileData);
-  return response.data;
-});
+// Define the initial state
+const initialState = {
+  profile: null,
+  status: 'idle',
+  error: null,
+};
 
+// Create the slice
 const profileSlice = createSlice({
   name: 'profiles',
-  initialState: {
-    profiles: [],
-    status: 'idle',
-    error: null,
-  },
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchProfiles.pending, (state) => {
+      .addCase(fetchProfile.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(fetchProfiles.fulfilled, (state, action) => {
+      .addCase(fetchProfile.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.profiles = action.payload;
+        state.profile = action.payload;
       })
-      .addCase(fetchProfiles.rejected, (state, action) => {
+      .addCase(fetchProfile.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
-      })
-      .addCase(updateProfile.fulfilled, (state, action) => {
-        const index = state.profiles.findIndex(profile => profile.id === action.payload.id);
-        if (index !== -1) {
-          state.profiles[index] = action.payload;
-        }
       });
   },
 });
 
+// Export the reducer
 export default profileSlice.reducer;

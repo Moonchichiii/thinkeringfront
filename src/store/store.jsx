@@ -7,7 +7,6 @@ import likeReducer from './likeSlice';
 import commentReducer from './commentSlice';
 import ratingReducer from './ratingSlice';
 import dashboardReducer from './dashboardSlice';
-
 import followingReducer from './followingSlice';
 
 const store = configureStore({
@@ -25,4 +24,3 @@ const store = configureStore({
 });
 
 export default store;
-

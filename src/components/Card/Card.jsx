@@ -1,7 +1,8 @@
 import React from 'react';
 import { Rating, IconButton, Accordion, AccordionSummary, AccordionDetails, Typography } from '@mui/material';
-import { Favorite, Comment, ExpandMore } from '@mui/icons-material';
+import { Favorite, ExpandMore } from '@mui/icons-material';
 import { useSelector } from 'react-redux';
+import { motion } from 'framer-motion';
 import styles from './Card.module.css';
 
 const BlogCard = ({ post }) => {
@@ -9,7 +10,12 @@ const BlogCard = ({ post }) => {
   const isAuthenticated = !!user;
 
   return (
-    <article className={styles.card}>
+    <motion.article 
+      className={styles.card}
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className={styles.imageContainer}>
         <img src={post.image} alt={post.title} className={styles.image} />
       </div>
@@ -46,7 +52,7 @@ const BlogCard = ({ post }) => {
           </div>
         )}
       </div>
-    </article>
+    </motion.article>
   );
 };
 

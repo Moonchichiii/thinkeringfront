@@ -10,17 +10,20 @@ import ProtectedRoute from './pages/protectedroutes/ProtectedRoutes';
 import MainContent from './pages/MainContent/MainContent';
 
 function AppRoutes() {
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const { user } = useSelector((state) => state.auth);
 
   return (
     <Routes>
-      <Route path="/" element={<MainLayout isAuthenticated={isAuthenticated} />}>
+      <Route path="/" element={<MainLayout isAuthenticated={!!user} />}>
         <Route index element={<MainContent />} />
-        <Route path="dashboard" element={
-          <ProtectedRoute isAuthenticated={isAuthenticated}>
-            <Dashboard />
-          </ProtectedRoute>
-        } />
+        <Route
+          path="dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
         <Route path="home" element={<Home />} />
         <Route path="about" element={<About />} />
         <Route path="blog" element={<Blog />} />

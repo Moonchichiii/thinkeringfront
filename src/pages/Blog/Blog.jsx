@@ -1,9 +1,8 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useTransition } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Masonry from 'react-masonry-css';
 import { debounce } from 'lodash';
 import { motion } from 'framer-motion';
-
 import { fetchPosts } from '../../store/postSlice';
 import SearchBar from '../../components/Searchbar/SearchBar';
 import BlogCard from '../../components/Card/Card';
@@ -11,9 +10,10 @@ import styles from './Blog.module.css';
 
 const BlogPage = () => {
   const dispatch = useDispatch();
-  const { posts, status, error } = useSelector(state => state.posts);
+  const { posts, status, error } = useSelector((state) => state.posts);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredPosts, setFilteredPosts] = useState([]);
+  const [isPending, startTransition] = useTransition();
 
   const breakpointColumnsObj = {
     default: 3,
@@ -26,12 +26,14 @@ const BlogPage = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    setFilteredPosts(
-      posts.filter(post =>
-        post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        post.excerpt.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    );
+    startTransition(() => {
+      setFilteredPosts(
+        posts.filter(post =>
+          post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          post.content.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      );
+    });
   }, [searchTerm, posts]);
 
   const handleSearch = useCallback(
@@ -44,7 +46,6 @@ const BlogPage = () => {
   }
 
   if (status === 'failed') {
-    // Handle error object rendering
     let errorMessage = "An unexpected error occurred.";
     if (error) {
       if (typeof error === 'string') {
@@ -67,22 +68,26 @@ const BlogPage = () => {
         Blog Posts
       </motion.h1>
       <SearchBar onSearch={handleSearch} />
-      <Masonry
-        breakpointCols={breakpointColumnsObj}
-        className={styles.masonryGrid}
-        columnClassName={styles.masonryColumn}
-      >
-        {filteredPosts.map((post, index) => (
-          <motion.div
-            key={post.id}
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-          >
-            <BlogCard post={post} />
-          </motion.div>
-        ))}
-      </Masonry>
+      {isPending ? (
+        <div className={styles.loading}>Updating...</div>
+      ) : (
+        <Masonry
+          breakpointCols={breakpointColumnsObj}
+          className={styles.masonryGrid}
+          columnClassName={styles.masonryColumn}
+        >
+          {filteredPosts.map((post, index) => (
+            <motion.div
+              key={post.id}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <BlogCard post={post} />
+            </motion.div>
+          ))}
+        </Masonry>
+      )}
     </div>
   );
 };

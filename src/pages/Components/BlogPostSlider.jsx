@@ -1,6 +1,6 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay } from 'swiper/modules'; // Updated path
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -12,7 +12,7 @@ const BlogPostSlider = ({ posts }) => {
     <div className={styles.blogPostSlider}>
       <h2>Featured Posts</h2>
       <Swiper
-        modules={[Navigation, Pagination, Autoplay]} 
+        modules={[Navigation, Pagination, Autoplay]}
         spaceBetween={30}
         slidesPerView={1}
         navigation
@@ -30,7 +30,3 @@ const BlogPostSlider = ({ posts }) => {
 };
 
 export default BlogPostSlider;
-
-
-
-

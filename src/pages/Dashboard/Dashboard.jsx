@@ -14,50 +14,29 @@ import styles from './Dashboard.module.css';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  const { profile, notifications, posts, popularProfiles, topRatedPosts, postsForApproval, following, status, error } = useSelector((state) => state.dashboard);
-  const { user } = useSelector((state) => state.auth);
+  const { posts, profile, notifications, status, error } = useSelector((state) => state.dashboard);
 
   useEffect(() => {
     dispatch(fetchDashboardData());
   }, [dispatch]);
-  useEffect(() => {
-    console.log('Profile:', profile);
-    console.log('Notifications:', notifications);
-    console.log('Posts:', posts);
-    console.log('Popular Profiles:', popularProfiles);
-    console.log('Top Rated Posts:', topRatedPosts);
-    console.log('Posts for Approval:', postsForApproval);
-    console.log('Following:', following);
-    console.log('Status:', status);
-    console.log('Error:', error);
-  }, [profile, notifications, posts, popularProfiles, topRatedPosts, postsForApproval, following, status, error]);
 
-  if (status === 'failed') {
-    return <div className={styles.error}>Error loading dashboard data: {error}</div>;
-  }
-
-  if (status === 'loading') {
-    return <div className={styles.loading}>Loading...</div>;
-  }
-
-  if (status === 'failed') {
-    return <div className={styles.error}>Error loading dashboard data: {error}</div>;
-  }
+  if (status === 'loading') return <div className={styles.loading}>Loading...</div>;
+  if (status === 'failed') return <div className={styles.error}>Error loading dashboard data: {error}</div>;
 
   return (
     <div className={styles.dashboardContainer}>
       <Alert />
       <div className={styles.mainContent}>
-        <ProfileSection profile={profile} />
+        {profile && <ProfileSection profile={profile} />}
         <NotificationsSection notifications={notifications} />
         <LatestPostsSection posts={posts} />
         <BlogPostSlider posts={posts} />
       </div>
       <div className={styles.sidebar}>
-        <PopularProfilesSection profiles={popularProfiles} />
-        <TopRatedPostsSection posts={topRatedPosts} />
-        <FollowingSection following={following} />
-        {user.isSuperUser && <PostApprovalSection posts={postsForApproval} />}
+        <PopularProfilesSection profiles={[]} />
+        <TopRatedPostsSection posts={[]} />
+        <FollowingSection following={[]} />
+        {true && <PostApprovalSection posts={[]} />}
       </div>
     </div>
   );

@@ -59,7 +59,6 @@ const Header = ({ scrolled }) => {
 
   const userMenuItems = [
     { to: `/profiles/${user?.id}`, label: 'Profile' },
-    { to: `/profiles/${user?.id}`, label: 'My account' },
     { onClick: handleLogout, label: 'Logout' },
   ];
 

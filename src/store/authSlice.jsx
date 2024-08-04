@@ -1,22 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { axiosInstance } from '../services/api';
 import Cookies from 'js-cookie';
-import { resetDashboardState } from './dashboardSlice';
 
-// Utility function to clear authentication cookies
 const clearAuthCookies = () => {
   Cookies.remove('access_token');
   Cookies.remove('refresh_token');
 };
 
-// Thunk to fetch CSRF token
-export const fetchCsrfToken = createAsyncThunk('auth/fetchCsrfToken', async () => {
-  const response = await axiosInstance.get('/api/v1/get-csrf-token/');
-  Cookies.set('csrftoken', response.data.csrfToken, { path: '/', secure: true, sameSite: 'None' });
-  return response.data.csrfToken;
-});
-
-// Thunk to fetch current user information
 export const fetchCurrentUser = createAsyncThunk('auth/fetchCurrentUser', async () => {
   try {
     const response = await axiosInstance.get('/api/v1/current_user/');
@@ -29,36 +19,30 @@ export const fetchCurrentUser = createAsyncThunk('auth/fetchCurrentUser', async 
   }
 });
 
-// Thunk to handle user login
 export const loginUser = createAsyncThunk('auth/login', async (credentials, { dispatch }) => {
   const response = await axiosInstance.post('/api/v1/login/', credentials);
   const { access, refresh, user } = response.data;
   Cookies.set('access_token', access, { path: '/', secure: true, sameSite: 'None' });
   Cookies.set('refresh_token', refresh, { path: '/', secure: true, sameSite: 'None' });
   dispatch(setUser(user));
-  dispatch(resetDashboardState()); // Reset dashboard state on login
   return response.data;
 });
 
-// Thunk to handle user registration
 export const registerUser = createAsyncThunk('auth/register', async (userData, { dispatch }) => {
   const response = await axiosInstance.post('/api/v1/register/', userData);
   const { access, refresh, user } = response.data;
   Cookies.set('access_token', access, { path: '/', secure: true, sameSite: 'None' });
   Cookies.set('refresh_token', refresh, { path: '/', secure: true, sameSite: 'None' });
   dispatch(setUser(user));
-  dispatch(resetDashboardState()); // Reset dashboard state on registration
   return response.data;
 });
 
-// Thunk to handle user logout
 export const logoutUser = createAsyncThunk('auth/logout', async () => {
   await axiosInstance.post('/api/v1/logout/');
   clearAuthCookies();
   return null;
 });
 
-// Thunk to refresh JWT token
 export const refreshToken = createAsyncThunk('auth/refreshToken', async () => {
   const refresh = Cookies.get('refresh_token');
   if (!refresh) {
@@ -69,7 +53,6 @@ export const refreshToken = createAsyncThunk('auth/refreshToken', async () => {
   return response.data;
 });
 
-// Auth slice
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
@@ -137,4 +120,3 @@ const authSlice = createSlice({
 
 export const { setInitialized, setUser, clearUser } = authSlice.actions;
 export default authSlice.reducer;
-

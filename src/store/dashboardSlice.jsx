@@ -3,15 +3,16 @@ import { axiosInstance } from '../services/api';
 
 export const fetchDashboardData = createAsyncThunk(
   'dashboard/fetchDashboardData',
-  async (_, { dispatch, getState }) => {
-    const { dashboard } = getState();
-    if (dashboard.status !== 'idle') return;
-
-    await Promise.all([
-      dispatch(fetchPosts()),
-      dispatch(fetchProfile()),
-      dispatch(fetchNotifications())
-    ]);
+  async (_, { dispatch }) => {
+    try {
+      await Promise.all([
+        dispatch(fetchPosts()),
+        dispatch(fetchProfile()),
+        dispatch(fetchNotifications())
+      ]);
+    } catch (error) {
+      throw error;
+    }
   }
 );
 
@@ -87,7 +88,7 @@ const dashboardSlice = createSlice({
   name: 'dashboard',
   initialState,
   reducers: {
-    resetDashboardState: () => initialState, // Add a reset function
+    resetDashboardState: () => initialState,
   },
   extraReducers: (builder) => {
     builder
