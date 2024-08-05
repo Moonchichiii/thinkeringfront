@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { AppBar, Toolbar, Container, Box, IconButton, Button, Tooltip, Menu, MenuItem, Avatar } from '@mui/material';
 import { AccountCircle, Menu as MenuIcon } from '@mui/icons-material';
 import { logoutUser } from '../../store/authSlice';
@@ -13,8 +13,9 @@ const Header = ({ scrolled }) => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [modalState, setModalState] = useState({ show: false, title: '', content: null });
-  
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { user, isAuthenticated } = useSelector((state) => state.auth);
   const profile = user?.profile;
 
@@ -34,9 +35,6 @@ const Header = ({ scrolled }) => {
   const handleSignIn = useCallback(() => {
     handleModalOpen('Sign In', 
       <SignInForm
-        switchToRegister={() => handleModalOpen('Sign Up', 
-          <SignUpForm switchToLogin={handleSignIn} closeModal={handleModalClose} />
-        )}
         closeModal={handleModalClose}
       />
     );
@@ -44,11 +42,14 @@ const Header = ({ scrolled }) => {
 
   const handleSignUp = useCallback(() => {
     handleModalOpen('Sign Up', 
-      <SignUpForm switchToLogin={handleSignIn} closeModal={handleModalClose} />
+      <SignUpForm closeModal={handleModalClose} />
     );
-  }, [handleModalOpen, handleModalClose, handleSignIn]);
+  }, [handleModalOpen, handleModalClose]);
 
-  const handleLogout = () => dispatch(logoutUser());
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    navigate('/');
+  };
 
   const navItems = [
     { to: '/home', label: 'Home' },

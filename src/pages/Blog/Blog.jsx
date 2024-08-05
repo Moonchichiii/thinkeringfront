@@ -59,7 +59,7 @@ const BlogPage = () => {
 
   return (
     <div className={styles.blogContainer}>
-      <motion.h1 
+      <motion.h1
         className={styles.title}
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}

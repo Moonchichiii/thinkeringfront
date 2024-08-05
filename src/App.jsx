@@ -14,7 +14,10 @@ const App = () => {
   useEffect(() => {
     const token = Cookies.get('access_token');
     if (token) {
-      dispatch(fetchCurrentUser());
+      dispatch(fetchCurrentUser()).catch(() => {
+        Cookies.remove('access_token');
+        Cookies.remove('refresh_token');
+      });
     }
   }, [dispatch]);
 
@@ -24,11 +27,9 @@ const App = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const isAuthenticated = !!user;
-
   return (
     <Router>
-      <AppRoutes isAuthenticated={isAuthenticated} scrolled={scrolled} />
+      <AppRoutes isAuthenticated={!!user} scrolled={scrolled} />
     </Router>
   );
 };

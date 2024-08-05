@@ -2,23 +2,13 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { axiosInstance } from '../services/api';
 import Cookies from 'js-cookie';
 
-const clearAuthCookies = () => {
-  Cookies.remove('access_token');
-  Cookies.remove('refresh_token');
-};
-
+// Thunk to fetch current user information
 export const fetchCurrentUser = createAsyncThunk('auth/fetchCurrentUser', async () => {
-  try {
-    const response = await axiosInstance.get('/api/v1/current_user/');
-    return response.data;
-  } catch (error) {
-    if (error.response?.status === 401) {
-      clearAuthCookies();
-    }
-    throw error;
-  }
+  const response = await axiosInstance.get('/api/v1/current_user/');
+  return response.data;
 });
 
+// Thunk to handle user login
 export const loginUser = createAsyncThunk('auth/login', async (credentials, { dispatch }) => {
   const response = await axiosInstance.post('/api/v1/login/', credentials);
   const { access, refresh, user } = response.data;
@@ -28,6 +18,7 @@ export const loginUser = createAsyncThunk('auth/login', async (credentials, { di
   return response.data;
 });
 
+// Thunk to handle user registration
 export const registerUser = createAsyncThunk('auth/register', async (userData, { dispatch }) => {
   const response = await axiosInstance.post('/api/v1/register/', userData);
   const { access, refresh, user } = response.data;
@@ -37,22 +28,15 @@ export const registerUser = createAsyncThunk('auth/register', async (userData, {
   return response.data;
 });
 
+// Thunk to handle user logout
 export const logoutUser = createAsyncThunk('auth/logout', async () => {
   await axiosInstance.post('/api/v1/logout/');
-  clearAuthCookies();
+  Cookies.remove('access_token');
+  Cookies.remove('refresh_token');
   return null;
 });
 
-export const refreshToken = createAsyncThunk('auth/refreshToken', async () => {
-  const refresh = Cookies.get('refresh_token');
-  if (!refresh) {
-    throw new Error('No refresh token found');
-  }
-  const response = await axiosInstance.post('/api/v1/refresh/', { refresh });
-  Cookies.set('access_token', response.data.access, { path: '/', secure: true, sameSite: 'None' });
-  return response.data;
-});
-
+// Auth slice
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
@@ -107,12 +91,6 @@ const authSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(logoutUser.fulfilled, (state) => {
-        state.user = null;
-      })
-      .addCase(refreshToken.fulfilled, (state, action) => {
-        Cookies.set('access_token', action.payload.access, { path: '/', secure: true, sameSite: 'None' });
-      })
-      .addCase(refreshToken.rejected, (state) => {
         state.user = null;
       });
   },

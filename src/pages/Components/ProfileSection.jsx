@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchProfile } from '../../store/profileSlice'; // Assuming fetchProfile action exists here
+import { fetchProfile } from '../../store/profileSlice';
 import styles from './ProfileSection.module.css';
 
 const ProfileSection = () => {
@@ -8,8 +8,13 @@ const ProfileSection = () => {
   const { profile, status, error } = useSelector((state) => state.profiles);
 
   useEffect(() => {
+    console.log('ProfileSection: Dispatching fetchProfile');
     dispatch(fetchProfile());
   }, [dispatch]);
+
+  useEffect(() => {
+    console.log('ProfileSection: State updates', { profile, status, error });
+  }, [profile, status, error]);
 
   if (status === 'loading') return <div>Loading profile...</div>;
   if (status === 'failed') return <div>Error: {error}</div>;

@@ -1,16 +1,18 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { approvePost, rejectPost } from '../../store/dashboardSlice';
+import { approvePost, rejectPost } from '../../store/postSlice'; // Assuming correct slice
 import styles from './PostApprovalSection.module.css';
 
 const PostApprovalSection = ({ posts }) => {
   const dispatch = useDispatch();
 
   const handleApprove = (postId) => {
+    console.log(`Approving post with ID: ${postId}`);
     dispatch(approvePost(postId));
   };
 
   const handleReject = (postId) => {
+    console.log(`Rejecting post with ID: ${postId}`);
     dispatch(rejectPost(postId));
   };
 
@@ -18,7 +20,7 @@ const PostApprovalSection = ({ posts }) => {
     <div className={styles.postApproval}>
       <h2>Posts Awaiting Approval</h2>
       <ul>
-        {posts.map(post => (
+        {posts.map((post) => (
           <li key={post.id}>
             <h3>{post.title}</h3>
             <p>{post.excerpt}</p>
