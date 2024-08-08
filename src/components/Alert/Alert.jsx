@@ -5,7 +5,7 @@ import { Snackbar, Alert as MuiAlert } from '@mui/material';
 
 const Alert = () => {
   const dispatch = useDispatch();
-  const alerts = useSelector((state) => state.alerts.messages);
+  const alerts = useSelector((state) => state.alerts?.messages || []); // Safely access messages
 
   return (
     <>

@@ -3,8 +3,9 @@
   grid-template-columns: 1fr 300px;
   gap: 20px;
   max-width: 1200px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+  margin: 0 auto;
+  padding: 1rem;
+  flex: 1;
 }
 
 .mainContent {

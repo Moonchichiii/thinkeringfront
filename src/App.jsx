@@ -8,7 +8,7 @@ import AppRoutes from './AppRoutes';
 
 const App = () => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
+  const { user, initialized } = useSelector((state) => state.auth);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -26,6 +26,10 @@ const App = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  if (!initialized) {
+    return <div>Loading...</div>; 
+  }
 
   return (
     <Router>

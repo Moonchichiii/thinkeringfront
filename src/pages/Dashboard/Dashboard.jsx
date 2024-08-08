@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPosts } from '../../store/postSlice'; 
+import { fetchPosts } from '../../store/postSlice';
 import BlogPostSlider from '../Components/BlogPostSlider';
 import PostApprovalSection from '../Components/PostApprovalSection';
 import Alert from '../../components/Alert/Alert';
@@ -24,6 +24,7 @@ const Dashboard = () => {
 
   return (
     <div className={styles.dashboardContainer}>
+      <h1>dASHBOARD!!!</h1>
       <Alert />
       <div className={styles.mainContent}>
         <BlogPostSlider posts={posts} />

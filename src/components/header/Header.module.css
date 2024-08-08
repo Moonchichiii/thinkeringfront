@@ -64,6 +64,6 @@
   .MuiPaper-root {
     background-color: rgba(52, 73, 94, 0.9) !important;
     backdrop-filter: blur(10px) !important;
-    /* color: white !important; */
+    
   }
 }

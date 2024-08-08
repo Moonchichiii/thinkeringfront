@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const initialState = {
+  messages: [],
+};
+
 const alertSlice = createSlice({
   name: 'alerts',
-  initialState: {
-    messages: [],
-  },
+  initialState,
   reducers: {
     addAlert: (state, action) => {
       state.messages.push(action.payload);

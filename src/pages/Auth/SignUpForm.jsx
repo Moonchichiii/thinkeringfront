@@ -3,13 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../../store/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { TextField, Button, Typography, Box, Alert } from '@mui/material';
-import styles from './AuthsForms.module.css';
+import styles from './AuthForms.module.css';
 
-const SignUpForm = ({ switchToLogin, closeModal }) => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password1, setPassword1] = useState('');
-  const [password2, setPassword2] = useState('');
+const SignUpForm = ({ closeModal }) => {
+  const [userData, setUserData] = useState({ username: '', email: '', password1: '', password2: '' });
   const [passwordError, setPasswordError] = useState('');
   const dispatch = useDispatch();
   const { user, loading, error } = useSelector((state) => state.auth);
@@ -24,92 +21,48 @@ const SignUpForm = ({ switchToLogin, closeModal }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (password1 !== password2) {
+    if (userData.password1 !== userData.password2) {
       setPasswordError('Passwords do not match');
       return;
     }
     setPasswordError('');
-    dispatch(registerUser({ username, email, password1, password2 }));
+    dispatch(registerUser(userData));
   };
 
   return (
     <Box className={styles.formContainer}>
-      <Typography variant="h4" component="h2" gutterBottom>
-        Register
-      </Typography>
+      <Typography variant="h4">Register</Typography>
       <form onSubmit={handleSubmit}>
         <TextField
-          fullWidth
           label="Username"
-          variant="outlined"
-          margin="normal"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          autoComplete="username"
-          InputLabelProps={{ className: styles.inputLabel }}
-          InputProps={{ className: styles.input }}
+          value={userData.username}
+          onChange={(e) => setUserData({ ...userData, username: e.target.value })}
           required
         />
         <TextField
-          fullWidth
           label="Email"
-          type="email"
-          variant="outlined"
-          margin="normal"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          autoComplete="email"
-          InputLabelProps={{ className: styles.inputLabel }}
-          InputProps={{ className: styles.input }}
+          value={userData.email}
+          onChange={(e) => setUserData({ ...userData, email: e.target.value })}
           required
         />
         <TextField
-          fullWidth
           label="Password"
           type="password"
-          variant="outlined"
-          margin="normal"
-          value={password1}
-          onChange={(e) => setPassword1(e.target.value)}
-          autoComplete="new-password"
-          InputLabelProps={{ className: styles.inputLabel }}
-          InputProps={{ className: styles.input }}
+          value={userData.password1}
+          onChange={(e) => setUserData({ ...userData, password1: e.target.value })}
           required
         />
         <TextField
-          fullWidth
           label="Confirm Password"
           type="password"
-          variant="outlined"
-          margin="normal"
-          value={password2}
-          onChange={(e) => setPassword2(e.target.value)}
-          autoComplete="new-password"
-          InputLabelProps={{ className: styles.inputLabel }}
-          InputProps={{ className: styles.input }}
+          value={userData.password2}
+          onChange={(e) => setUserData({ ...userData, password2: e.target.value })}
           required
         />
-        {passwordError && <Alert severity="error" className={styles.alert}>{passwordError}</Alert>}
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          fullWidth
-          disabled={loading}
-          className={styles.button}
-        >
-          {loading ? 'Registering...' : 'Register'}
-        </Button>
-        {error && <Alert severity="error" className={styles.alert}>{error}</Alert>}
+        {passwordError && <Alert severity="error">{passwordError}</Alert>}
+        <Button type="submit" disabled={loading}>Register</Button>
+        {error && <Alert severity="error">{error}</Alert>}
       </form>
-      <Box className={styles.switchForm}>
-        <Typography variant="body2">
-          Already have an account?{' '}
-          <Button onClick={switchToLogin} className={styles.switchButton}>
-            Sign in here!
-          </Button>
-        </Typography>
-      </Box>
     </Box>
   );
 };

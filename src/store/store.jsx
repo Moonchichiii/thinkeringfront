@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './authSlice';
+import alertReducer from './alertSlice';
 import profileReducer from './profileSlice';
 import postReducer from './postSlice';
 import notificationReducer from './notificationSlice';
@@ -12,6 +13,7 @@ import followingReducer from './followingSlice';
 const store = configureStore({
   reducer: {
     auth: authReducer,
+    alerts: alertReducer,
     profiles: profileReducer,
     posts: postReducer,
     likes: likeReducer,
@@ -21,6 +23,11 @@ const store = configureStore({
     dashboard: dashboardReducer,
     following: followingReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+      immutableCheck: false,
+    }),
 });
 
 export default store;

@@ -18,7 +18,7 @@ function MainContent() {
   };
 
   useEffect(() => {
-    setShowHeader(false);
+    setShowHeader(true);
   }, [setShowHeader]);
 
   useEffect(() => {

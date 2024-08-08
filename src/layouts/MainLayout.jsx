@@ -8,7 +8,7 @@ function MainLayout({ scrolled, isAuthenticated }) {
   const [showHeader, setShowHeader] = useState(true);
 
   const handleScroll = useCallback(() => {
-    setShowHeader(window.scrollY > 50);
+    setShowHeader(true);
   }, []);
 
   useEffect(() => {
@@ -18,8 +18,8 @@ function MainLayout({ scrolled, isAuthenticated }) {
 
   return (
     <div className={styles.layout}>
-      {showHeader && <Header scrolled={scrolled} isAuthenticated={isAuthenticated} />}
-      <main>
+      <Header scrolled={scrolled} isAuthenticated={isAuthenticated} />
+      <main className={styles.mainContent}>
         <Outlet context={{ setShowHeader }} />
       </main>
       <Footer />
